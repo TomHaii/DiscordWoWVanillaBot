@@ -59,8 +59,6 @@ def takeimage(itemID):
 	browser = webdriver.Chrome('C:\chromedriver.exe')
 	#browser.maximize_window()
 	browser.get('http://db.vanillagaming.org/?item=' + itemID)
-	name = browser.find_elements_by_tag_name('h1')
-	print(name)
 	browser.get_screenshot_as_file(str(itemID) + 'Web.png')
 	img = Image.open(str(itemID) + 'Web.png')
 	picBluePixelsCount = 0
