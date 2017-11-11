@@ -14,3 +14,7 @@ using command `!help` in order to learn about the bot features.
 - `Selenium for 3.3+` library with Chromedriver
 - `logging` library
 - `Pillow` library
+
+
+- [test bot](https://discordapp.com/oauth2/authorize?client_id=373173447603257364&scope=bot)
+
