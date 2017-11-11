@@ -7,6 +7,8 @@ Add topics
 
 using command `!help` in order to learn about the bot features.
 
+[test bot](https://discordapp.com/oauth2/authorize?client_id=373173447603257364&scope=bot)
+
 ## Requirements
 
 - Python 3.4.2+
@@ -16,5 +18,5 @@ using command `!help` in order to learn about the bot features.
 - `Pillow` library
 
 
-- [test bot](https://discordapp.com/oauth2/authorize?client_id=373173447603257364&scope=bot)
+
 
