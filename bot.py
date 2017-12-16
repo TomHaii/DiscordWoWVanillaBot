@@ -35,7 +35,7 @@ async def on_message(message):
 				takeimage(newArgs[1])
 				try:
 					with open(str(newArgs[1]) + '.png', 'rb') as f:
-						await client.send_file(message.channel, f)
+						await client.send_file(message.channel, f, content=str('http://db.vanillagaming.org/?item=' + str(newArgs[1])))
 						foundFile = True
 				except:
 					await client.send_message(message.channel, 'Error Finding Item, make sure you pass the right item ID')
