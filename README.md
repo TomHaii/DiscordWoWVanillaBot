@@ -13,10 +13,6 @@ using command `!help` in order to learn about the bot features.
 
 - Python 3.4.2+
 - [discord.py](https://github.com/Rapptz/discord.py)
-- `Selenium for 3.3+` library with Chromedriver
+- `Selenium for 3.3+` library with Geckdriver and Firefox Binary
 - `logging` library
 - `Pillow` library
-
-
-
-

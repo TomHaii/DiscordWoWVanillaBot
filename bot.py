@@ -1,7 +1,10 @@
-import logging, os, discord, asyncio
+import logging, os, discord, asyncio?SYS
 from selenium import webdriver
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from PIL import Image
 
+FIREFOX_PATH = r'C:\Program Files\Mozilla Firefox\firefox.exe'
+GECKODRIVER_PATH = r'C:\geckodriver.exe'
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
@@ -56,34 +59,14 @@ async def on_message(message):
 
 
 def takeimage(itemID):
-	browser = webdriver.Chrome('C:\chromedriver.exe')
-	#browser.maximize_window()
+	#We need Firefox to be able to screenshot the selected element and add the binary to be able to hide the window
+	os.environ['MOZ_HEADLESS'] = '1'
+	binary = FirefoxBinary(FIREFOX_PATH, log_file=sys.stdout)
+	binary.add_command_line_options('-headless')
+	browser = webdriver.Firefox(executable_path=GECKODRIVER_PATH,firefox_binary=binary)
+
 	browser.get('http://db.vanillagaming.org/?item=' + itemID)
-	browser.get_screenshot_as_file(str(itemID) + 'Web.png')
-	img = Image.open(str(itemID) + 'Web.png')
-	picBluePixelsCount = 0
-	img = img.convert("RGBA")
-	pixdata = img.load()
-	width, height = img.size
-	widthOffset = 90
-	heightOffset = 280
-	for y in range(height):
-		for x in range(width):
-			if pixdata[x, y] == (36, 36, 36, 255):
-				pixdata[x, y] = (255, 255, 255, 0)
-	#counting blue pixels in order to determine image size
-	for newY in range(height):
-		if pixdata[130, newY] == (8, 13, 33, 255):
-			picBluePixelsCount += 1
-	print (str(picBluePixelsCount) + ' Blue Pixels')
-	try:
-		img2 = img.crop((widthOffset, heightOffset, 500, (picBluePixelsCount * 1.7) + heightOffset))
-		img2.save(str(itemID) + '.png', "PNG")
-	except:
-		if(os.path.isfile(str(itemID) + '.png')):
-			os.remove(str(itemID) + '.png')
-			print('Error Saving Image')
-	os.remove(str(itemID) + 'Web.png')
+	browser.find_element_by_class_name('tooltip').screenshot(str(itemID) + '.png')
 	browser.close()
 
 
