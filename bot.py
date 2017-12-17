@@ -1,4 +1,4 @@
-import logging, os, discord, asyncio?SYS
+import logging, os, discord, asyncio,sys
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from PIL import Image
@@ -64,9 +64,12 @@ def takeimage(itemID):
 	binary = FirefoxBinary(FIREFOX_PATH, log_file=sys.stdout)
 	binary.add_command_line_options('-headless')
 	browser = webdriver.Firefox(executable_path=GECKODRIVER_PATH,firefox_binary=binary)
-
 	browser.get('http://db.vanillagaming.org/?item=' + itemID)
-	browser.find_element_by_class_name('tooltip').screenshot(str(itemID) + '.png')
+	try:
+		browser.find_element_by_class_name('tooltip').screenshot(str(itemID) + '.png')
+		print('Element at id : %s found' % itemID)
+	except NoSuchElementException:
+		print('Element at id : %s not found' % itemID)
 	browser.close()
 
 
