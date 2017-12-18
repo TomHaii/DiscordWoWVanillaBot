@@ -9,6 +9,10 @@ using command `!help` in order to learn about the bot features.
 
 [test bot](https://discordapp.com/oauth2/authorize?client_id=373173447603257364&scope=bot)
 
+## Arguments
+
+- '-c' in order to active the cache feature.
+
 ## Requirements
 
 - Python 3.4.2+
