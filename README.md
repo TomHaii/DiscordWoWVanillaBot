@@ -2,16 +2,14 @@
 [![PyPI](https://img.shields.io/pypi/v/discord.py.svg)](https://pypi.python.org/pypi/discord.py/)
 [![PyPI](https://img.shields.io/pypi/pyversions/discord.py.svg)](https://pypi.python.org/pypi/discord.py/)
 
-Discord bot for getting item information using selenium, discord python api and Vanillagaming website. Edit
-Add topics
-
+Discord bot for getting item information using selenium, discord python api and Vanillagaming website.
 using command `!help` in order to learn about the bot features.
 
 [test bot](https://discordapp.com/oauth2/authorize?client_id=373173447603257364&scope=bot)
 
 ## Arguments
 
-- '-c' in order to active the cache feature.
+- '-c' in order to active cache.
 
 ## Requirements
 
