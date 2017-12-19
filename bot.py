@@ -5,10 +5,10 @@ from PIL import Image
 
 FIREFOX_PATH = r'C:\Program Files\Mozilla Firefox\firefox.exe'
 GECKODRIVER_PATH = r'C:\geckodriver.exe'
+cachefolder = os.getcwd() + '\cache\\'
+cachetrigger = False;
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
-cachefolder = r'\path\\'
-cachetrigger = False;
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
@@ -37,7 +37,6 @@ async def on_message(message):
 			if (len(newArgs) == 2):
 				itemid = newArgs[1]
 				if findimagefromcache(itemid):
-					print('Found item in cache folder')
 					delete = False
 				else:
 					print('Downloading File')
@@ -53,8 +52,9 @@ async def on_message(message):
 		except ValueError:
 			await client.send_message(message.channel, 'Error Finding Item, make sure you passed the right parameters')
 		#If cache argument has not passed, delete the item after sending it to Discord
-		if delete and foundFile and cachetrigger is False: 
+		if delete and foundFile and cachetrigger is False:
 			os.remove(cachefolder + str(itemid) + '.png')
+			print(str(itemid) + '.png removed ')
 	elif (message.content.startswith('!findplayer')):
 		await client.send_message(message.channel, 'Looking for Player...')
 		try:
@@ -77,9 +77,9 @@ def takeimage(itemID):
 	browser.get('http://db.vanillagaming.org/?item=' + itemID)
 	try:
 		browser.find_element_by_class_name('tooltip').screenshot(cachefolder + str(itemID) + '.png')
-		print('Element at id : %s found' % itemID)
+		print('Tooltip for item id : %s found at %s\nSaved at %s' % (itemID, str('http://db.vanillagaming.org/?item=' + str(itemID)), str(cachefolder+ str(itemID) + '.png')))
 	except:
-		print('Element at id : %s not found' % itemID)
+		print('Tooltip for item id : %s not found at %s' % (itemID, str('http://db.vanillagaming.org/?item=' + str(itemID))))
 	browser.close()
 
 
@@ -89,19 +89,25 @@ def findplayer(playerName):
 
 def findimagefromcache(itemID):
 	filename = itemID + '.png'
-	print('trying to find' + filename)
+	print('Trying to find ' + filename)
 	for files in os.walk(cachefolder):
 		for file in files:
 			if filename in file:
+				print('Item found in cache folder')
 				return True
+	print('Item not found in cache folder')
 	return False
 
 if __name__ == '__main__':
 	myargs = sys.argv
 	if '-c' in myargs:
 		cachetrigger = True
+		if not os.path.exists(os.path.dirname(cachefolder)):
+		    try:
+		        os.makedirs(os.path.dirname(cachefolder))
+		    except:
+		        print('Error while creating the cache folder')
 	print('Cache is {0}'.format(cachetrigger))
 	print(myargs)
-
 
 client.run('token')
