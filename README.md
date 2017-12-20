@@ -13,15 +13,21 @@ using command `!help` in order to learn about the bot features.
 
   Make sure to have [Mozilla Firefox binaries](https://www.mozilla.org/) installed and to download [Geckodriver](https://github.com/mozilla/geckodriver/releases)
 
-  `> cd path/to/bot/dir`
+  ```
+  > cd path/to/bot/dir
+  ```
 
-  `> python -m pip install -r requirements.txt`
+  ```
+  > python -m pip install -r requirements.txt`
+  ```
 
   Open bot.py and replace:
    - on line 6 and 7 the variables `FIREFOX_PATH` and `GECKODRIVER_PATH` by your own paths to the executables files
    - on the last line token in `client.run('token')` by your own Discord App token
 
-  `> python bot.py`
+  ```
+  > python bot.py`
+  ```
 
 ### Arguments
 
