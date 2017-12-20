@@ -15,9 +15,7 @@ using command `!help` in order to learn about the bot features.
 
   ```
   > cd path/to/bot/dir
-  ```
 
-  ```
   > python -m pip install -r requirements.txt`
   ```
 
@@ -26,7 +24,7 @@ using command `!help` in order to learn about the bot features.
    - on the last line token in `client.run('token')` by your own Discord App token
 
   ```
-  > python bot.py`
+  > python bot.py
   ```
 
 ### Arguments
