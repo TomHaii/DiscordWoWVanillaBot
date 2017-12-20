@@ -2,7 +2,6 @@ from fuzzywuzzy import process
 import logging, os, discord, asyncio,sys
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from PIL import Image
 
 FIREFOX_PATH = r'C:\Program Files\Mozilla Firefox\firefox.exe'
 GECKODRIVER_PATH = r'C:\geckodriver.exe'
@@ -110,6 +109,16 @@ def findimagefromcache(itemID):
 	print('Item not found in cache folder')
 	return False
 
+def finditemidfromname(name):
+	items = {}
+	with open('items.csv', 'r') as f:
+		for line in f:
+			if line == '\n':
+				continue
+			data = line.split(',')
+			items[data[1]] = data[0]
+		return items[process.extractOne(name, items.keys())[0]]
+
 if __name__ == '__main__':
 	myargs = sys.argv
 	if '-c' in myargs:
@@ -122,14 +131,6 @@ if __name__ == '__main__':
 	print('Cache is {0}'.format(cachetrigger))
 	print(myargs)
 
-def finditemidfromname(name):
-	items = {}
-	with open('items.csv', 'r') as f:
-		for line in f:
-			if line == '\n':
-				continue
-			data = line.split(',')
-			items[data[1]] = data[0]
-		return items[process.extractOne(name, items.keys())[0]]
+
 
 client.run('token')
