@@ -3,3 +3,4 @@ python-Levenshtein
 selenium
 aiohttp
 websockets
+discord.py
