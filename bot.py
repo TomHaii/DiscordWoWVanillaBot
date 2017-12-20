@@ -1,4 +1,3 @@
-from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import logging, os, discord, asyncio,sys
 from selenium import webdriver
@@ -27,8 +26,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
 	if message.content.startswith('!help'):
-		await client.send_message(message.channel, 'Screenshotting item - "!finditem #VANILLAGAMINGITEMID" - Example -> !finditem 18402')
-		await client.send_message(message.channel, 'Finding player - "!findplayer #NAME"')
+		await client.send_message(message.channel, 'Finding player :\n- "!findplayer #NAME"')
 	elif (message.content.startswith('!finditem')):
 		await client.send_message(message.channel, 'Looking for item...')
 		foundFile = False
@@ -36,11 +34,19 @@ async def on_message(message):
 		try:
 			newArgs = message.content.split(' ')
 			print (newArgs)
-			if (len(newArgs) == 2):
-				if newArgs[1].isdigit():
-					itemid = newArgs[1]
+			if (len(newArgs) >= 2):
+				if (len(newArgs) == 2):
+					if newArgs[1].isdigit():
+						itemid = newArgs[1]
+					else:
+						itemid = finditemidfromname(newArgs[1])
 				else:
-					itemid = finditemidfromname(newArgs[1])
+					name = ''
+					for i in range(1, len(newArgs)):
+						name += newArgs[i]
+						if i  != len(newArgs):
+							name += ' '
+					itemid = finditemidfromname(name)
 				if findimagefromcache(itemid):
 					delete = False
 				else:

@@ -18,3 +18,4 @@ using command `!help` in order to learn about the bot features.
 - `Selenium for 3.3+` library with Geckodriver and Firefox Binary
 - `logging` library
 - `Pillow` library
+- `fuzzywuzzy` and `python-Levenshtein` libraries
