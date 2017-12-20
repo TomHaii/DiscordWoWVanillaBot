@@ -125,4 +125,4 @@ def finditemidfromname(name):
 			items[data[1]] = data[0]
 		return items[process.extractOne(name, items.keys())[0]]
 
-client.run('MzkwOTk1MjY2OTg5MzI2MzQ2.DRSORg.-e_aMd2pSRO3Mqh5rHdul5u39nE')
+client.run('token')
