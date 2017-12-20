@@ -1,3 +1,5 @@
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 import logging, os, discord, asyncio,sys
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -35,7 +37,10 @@ async def on_message(message):
 			newArgs = message.content.split(' ')
 			print (newArgs)
 			if (len(newArgs) == 2):
-				itemid = newArgs[1]
+				if newArgs[1].isdigit():
+					itemid = newArgs[1]
+				else:
+					itemid = finditemidfromname(newArgs[1])
 				if findimagefromcache(itemid):
 					delete = False
 				else:
@@ -110,4 +115,14 @@ if __name__ == '__main__':
 	print('Cache is {0}'.format(cachetrigger))
 	print(myargs)
 
-client.run('token')
+def finditemidfromname(name):
+	items = {}
+	with open('items.csv', 'r') as f:
+		for line in f:
+			if line == '\n':
+				continue
+			data = line.split(',')
+			items[data[1]] = data[0]
+		return items[process.extractOne(name, items.keys())[0]]
+
+client.run('MzkwOTk1MjY2OTg5MzI2MzQ2.DRSORg.-e_aMd2pSRO3Mqh5rHdul5u39nE')
