@@ -31,7 +31,7 @@ using command `!help` in order to learn about the bot features.
 
 ### Arguments
 
-  - `> python bot.py -c` in order to active cache.
+  - `> python bot.py -nc` in order to disable cache.
 
 
 ## Requirements
