@@ -16,12 +16,14 @@ using command `!help` in order to learn about the bot features.
   ```
   > cd path/to/bot/dir
 
-  > python -m pip install -r requirements.txt`
+  > python -m pip install -r requirements.txt
   ```
 
   Open bot.py and replace:
    - on line 6 and 7 the variables `FIREFOX_PATH` and `GECKODRIVER_PATH` by your own paths to the executables files
    - on the last line token in `client.run('token')` by your own Discord App token
+
+  Run it !
 
   ```
   > python bot.py
@@ -30,6 +32,7 @@ using command `!help` in order to learn about the bot features.
 ### Arguments
 
   - `> python bot.py -c` in order to active cache.
+
 
 ## Requirements
 
