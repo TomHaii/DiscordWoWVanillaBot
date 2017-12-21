@@ -112,11 +112,11 @@ def findimagefromcache(itemID):
 def finditemidfromname(name):
 	global items
 	if not bool(items):
-		items = initItemsList()
+		items = inititemsdict()
 	return items[process.extractOne(name, items.keys())[0]]
 
 
-def inititemslist():
+def inititemsdict():
 	items = {}
 	with open('items.csv', 'r') as f:
 		for line in f:
@@ -128,6 +128,7 @@ def inititemslist():
 
 if __name__ == '__main__':
 	myargs = sys.argv
+	#maybe make cache true by default ?
 	if '-c' in myargs:
 		cachetrigger = True
 		if not os.path.exists(os.path.dirname(cachefolder)):
@@ -138,7 +139,7 @@ if __name__ == '__main__':
 	print('Cache is {0}'.format(cachetrigger))
 	print(myargs)
 	global items
-	items = inititemslist()
+	items = inititemsdict()
 
 
 
