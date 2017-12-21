@@ -6,7 +6,7 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 FIREFOX_PATH = r'C:\Program Files\Mozilla Firefox\firefox.exe'
 GECKODRIVER_PATH = r'C:\geckodriver.exe'
 cachefolder = os.getcwd() + '\cache\\'
-cachetrigger = False;
+cachetrigger = True;
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
@@ -127,8 +127,8 @@ def inititemsdict():
 
 if __name__ == '__main__':
 	myargs = sys.argv
-	if '-c' in myargs:
-		cachetrigger = True
+	if '-nc' in myargs:
+		cachetrigger = False
 		if not os.path.exists(os.path.dirname(cachefolder)):
 		    try:
 		        os.makedirs(os.path.dirname(cachefolder))
