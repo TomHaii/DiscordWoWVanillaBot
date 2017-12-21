@@ -95,7 +95,7 @@ def takeimage(itemID):
 
 
 def findplayer(playerName):
-	realmPlayers = 'http://realmplayers.com/CharacterViewer.aspx?realm=Ely&player='
+	realmPlayers = 'http://realmplayers.com/CharacterViewer.aspx?realm=LB&player='
 	return (realmPlayers + playerName)
 
 def findimagefromcache(itemID):
@@ -110,6 +110,13 @@ def findimagefromcache(itemID):
 	return False
 
 def finditemidfromname(name):
+	global items
+	if not bool(items):
+		items = initItemsList()
+	return items[process.extractOne(name, items.keys())[0]]
+
+
+def inititemslist():
 	items = {}
 	with open('items.csv', 'r') as f:
 		for line in f:
@@ -117,7 +124,7 @@ def finditemidfromname(name):
 				continue
 			data = line.split(',')
 			items[data[1]] = data[0]
-		return items[process.extractOne(name, items.keys())[0]]
+	return items
 
 if __name__ == '__main__':
 	myargs = sys.argv
@@ -130,6 +137,8 @@ if __name__ == '__main__':
 		        print('Error while creating the cache folder')
 	print('Cache is {0}'.format(cachetrigger))
 	print(myargs)
+	global items
+	items = inititemslist()
 
 
 
