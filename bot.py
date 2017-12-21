@@ -117,17 +117,13 @@ def finditemidfromname(name):
 	return items[process.extractOne(name, items.keys())[0]]
 
 
-
 def inititemsdict():
 	items = {}
 	with open('items.csv', 'r') as f:
-		reader = csv.reader(f)
-		data = list(reader)
-		for index in range(len(data)):
-			items[data[index][1]] = data[index][0]
+		reader = csv.DictReader(f)
+		for row in reader:
+			items[row['name']] = row['entry']
 	return items
-
-
 
 if __name__ == '__main__':
 	myargs = sys.argv
