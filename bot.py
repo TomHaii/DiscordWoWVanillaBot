@@ -1,5 +1,5 @@
 from fuzzywuzzy import process
-import logging, os, discord, asyncio,sys
+import logging, os, discord, asyncio,sys,csv
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
@@ -80,11 +80,12 @@ async def on_message(message):
 
 
 def takeimage(itemID):
-	#We need Firefox to be able to screenshot the selected element and add the binary to be able to hide the window
+	#setup browser for running in background
 	os.environ['MOZ_HEADLESS'] = '1'
 	binary = FirefoxBinary(FIREFOX_PATH, log_file=sys.stdout)
 	binary.add_command_line_options('-headless')
 	browser = webdriver.Firefox(executable_path=GECKODRIVER_PATH,firefox_binary=binary)
+	#request item url
 	browser.get('http://db.vanillagaming.org/?item=' + itemID)
 	try:
 		browser.find_element_by_class_name('tooltip').screenshot(cachefolder + str(itemID) + '.png')
@@ -116,19 +117,20 @@ def finditemidfromname(name):
 	return items[process.extractOne(name, items.keys())[0]]
 
 
+
 def inititemsdict():
 	items = {}
 	with open('items.csv', 'r') as f:
-		for line in f:
-			if line == '\n':
-				continue
-			data = line.split(',')
-			items[data[1]] = data[0]
+		reader = csv.reader(f)
+		data = list(reader)
+		for index in range(len(data)):
+			items[data[index][1]] = data[index][0]
 	return items
+
+
 
 if __name__ == '__main__':
 	myargs = sys.argv
-	#maybe make cache true by default ?
 	if '-c' in myargs:
 		cachetrigger = True
 		if not os.path.exists(os.path.dirname(cachefolder)):
@@ -140,7 +142,6 @@ if __name__ == '__main__':
 	print(myargs)
 	global items
 	items = inititemsdict()
-
 
 
 client.run('token')
